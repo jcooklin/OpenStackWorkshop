@@ -1,3 +1,6 @@
 #Create Security keypair
 #nova keypair-add  <keypair name> 
-nova keypair-add $USERNAME-keypair
+echo "Please enter a Keypair name starting with your idsid"
+read keypairname
+nova keypair-add $keypairname
+

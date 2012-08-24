@@ -6,6 +6,8 @@ echo "Please enter flavorId"
 read flavorid
 echo "Please enter imageid"
 read imageid
-nova boot --flavor=$flavorid --image=$imageid $USERNAME-instance
+echo "Please enter a  instance name starting with your idsid ex:idsidinstance"
+read instancename 
+nova boot --flavor=$flavorid --image=$imageid $instancename
 
 

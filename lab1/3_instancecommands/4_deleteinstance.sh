@@ -1,5 +1,7 @@
 #Delete the instance of Virtual machine created
 #nova delete <instance name>
-nova delete $USERNAME-instance
+echo "Please enter the instance that you created earlier"
+read instancename
+nova delete $instancename
 
 
