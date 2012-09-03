@@ -1,0 +1,4 @@
+Django==1.4.1
+boto==2.5.2
+ipython==0.13
+wsgiref==0.1.2
