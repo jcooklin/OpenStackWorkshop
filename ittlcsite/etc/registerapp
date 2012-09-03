@@ -1,0 +1,30 @@
+<VirtualHost *:8080>
+    WSGIScriptAlias / /var/www/ittlc_workshop/ittlcsite/ittlcsite/wsgi.py
+    WSGIDaemonProcess ittlcsite user=www-data group=www-data processes=3 threads=10 home=/var/www/ittlc_workshop/ittlcsite
+    WSGIApplicationGroup %{GLOBAL}
+
+    SetEnv APACHE_RUN_USER www-data
+    SetEnv APACHE_RUN_GROUP www-data
+    WSGIProcessGroup ittlcsite
+
+    DocumentRoot /var/www/ittlc_workshop/ittlcsite/.blackhole/
+    Alias /media /var/www/ittlc_workshop/ittlcsite/ittlcsite/static
+
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+
+    <Directory /var/www/ittlc_workshop/ittlcsite/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+        Order allow,deny
+        allow from all
+    </Directory>
+
+    ErrorLog /var/log/apache2/ittlc_error.log
+    LogLevel warn
+    CustomLog /var/log/apache2/ittlc_access.log combined
+</VirtualHost>
+
+WSGISocketPrefix /var/run/apache2
