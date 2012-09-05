@@ -8,6 +8,10 @@ echo "Please enter imageid"
 read imageid
 echo "Please enter a  instance name starting with your idsid ex:idsidinstance"
 read instancename 
-nova boot --flavor=$flavorid --image=$imageid $instancename
+
+echo "Please enter key pair name "
+read keypair
+
+nova boot --flavor=$flavorid --image=$imageid --key_name $keypair  $instancename
 
 
