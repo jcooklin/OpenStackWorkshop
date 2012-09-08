@@ -1,7 +1,7 @@
-Content-Type: multipart/mixed; boundary="===============2170730971758048040=="
+Content-Type: multipart/mixed; boundary="===============6092162405979549893=="
 MIME-Version: 1.0
 
---===============2170730971758048040==
+--===============6092162405979549893==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -20,7 +20,7 @@ echo SERVICE_TOKEN=tokentoken >> localrc
 echo FLAT_INTERFACE=br100 >> localrc
 ./stack.sh
 
---===============2170730971758048040==
+--===============6092162405979549893==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -29,6 +29,10 @@ Content-Disposition: attachment; filename="30_create_users"
 #!/bin/bash
 
 #create user
+hostname=`hostname`
+dnsdomainname=`dnsdomainname`
+fqdn="${hostname}.${dnsdomainname}.com"
+
 for i in `shuf -i 2000-65000 -n 10`
 do
 echo ""
@@ -42,8 +46,8 @@ mkdir /home/user${i}/.ssh
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKQlnp+lZmtcBLCIgyKaDfyUjQJNtjfoIIQec1nbsdlZ6ta9etrBsqHrbSb6/i9+rI5gINbK9F3eqxLrND/m5pFxDw1nsM7IGuZGUqoVZpYmqleTEm/GBQiXlP6thOew74tUePSKOjXtRPEzLh/m3Q341jMedwRt2XoZPyJiEJSmxqrk5OPinhMbHsxq6uukScpJ1xOSQDhqPp3Zl9EGb/lO5/+lpEO0oAt5IVnZfPI/ufxWsVojlgYq1ukZNSiMNTkI7+8aWA51H807/ywma3IgA7UB5cQsocR/z2kInF/J/u3LluAC/q5a2yqQV2Korz+rpPOMos0eJFAItTVt8t">> /home/user${i}/.ssh/authorized_keys
 chown user${i}:user${i} /home/user${i}/.ssh/authorized_keys
 chmod 640 /home/user${i}/.ssh/authorized_keys
-echo "register account as available..."
-echo "TODO"
+echo "registering login..."
+curl "http://ec2-23-20-190-233.compute-1.amazonaws.com/register/${fqdn}/user${i}/"
 done
 
---===============2170730971758048040==--
+--===============6092162405979549893==--

@@ -19,7 +19,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('registerapp',
     (r'^register/(?P<server>[-\w]+)/(?P<login>[-\w]+)/$', register),
-    (r'^login/$', get_login),
+    (r'^$', get_login),
     (r'^login/list/$', list_logins),
 )
 
