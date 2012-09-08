@@ -1,9 +1,12 @@
 #!/bin/bash
 
-#create user
 publicdns=`curl http://169.254.169.254/latest/meta-data/public-hostname`
 
-for i in `shuf -i 2000-65000 -n 10`
+#create user
+memtotal=`grep MemTotal /proc/meminfo | awk '{print $2}'`
+let mem_per_user=1024*512
+let num_of_users=${memtotal}/${mem_per_user}
+for i in `shuf -i 2000-65000 -n ${num_of_users}`
 do
 echo ""
 echo "creating user$i..."
@@ -19,6 +22,7 @@ chmod 640 /home/user${i}/.ssh/authorized_keys
 echo "registering login..."
 curl "http://ec2-23-20-190-233.compute-1.amazonaws.com/register/${publicdns}/user${i}/"
 done
+
 #enable password authentication and restart ssh
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 /etc/init.d/ssh restart
