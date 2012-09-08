@@ -16,7 +16,7 @@ class Login(models.Model):
 
 class Participant(models.Model):
     client_ip = models.CharField(max_length=60, unique=True)
-    login = models.ForeignKey(Login)
+    login = models.OneToOneField(Login)
     created = models.DateTimeField(auto_now_add=True)    
 
     class Meta:

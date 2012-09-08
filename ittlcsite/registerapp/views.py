@@ -3,6 +3,7 @@ from registerapp.models import *
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ def register(request,server,login):
     logger.info("registration received for {0}@{1}".format(server,login))
     return HttpResponse("registration received for {0}@{1}".format(server,login))
 
-def getlogin(request):
+def get_login(request):
     try:
         participant = Participant.objects.get(client_ip=request.META["REMOTE_ADDR"])
     except ObjectDoesNotExist:
@@ -33,3 +34,19 @@ def getlogin(request):
             ,'login': participant.login.name
         }
     )
+
+def list_logins(request):
+    logins = Login.objects.all()
+    #results = [{"login_name":i.name,"host":i.host.name,"participant":i.participant.client_ip if i.participant else None} for i in logins]
+    #results = [{"login_name":i.name,"host":i.host.name} for i in logins]
+    results=[]
+    for i in logins:        
+        try: 
+            results.append( {"login_name":i.name,"host":i.host.name,"participant":i.participant.client_ip} )
+        except ObjectDoesNotExist:
+            results.append( {"login_name":i.name,"host":i.host.name,"participant":None} )
+    return HttpResponse(json.dumps({"success": True, "results": results}),status=200, content_type="application/json");
+    
+
+
+
