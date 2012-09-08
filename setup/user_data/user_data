@@ -1,7 +1,38 @@
-Content-Type: multipart/mixed; boundary="===============6092162405979549893=="
+Content-Type: multipart/mixed; boundary="===============2222916938782890230=="
 MIME-Version: 1.0
 
---===============6092162405979549893==
+--===============2222916938782890230==
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="10_create_users"
+
+#!/bin/bash
+
+#create user
+publicdns=`curl http://169.254.169.254/latest/meta-data/public-hostname`
+
+for i in `shuf -i 2000-65000 -n 10`
+do
+echo ""
+echo "creating user$i..."
+adduser --disabled-password --gecos "" user${i}
+echo "setting standard passwd for user$i..."
+echo "user${i}:password" | chpasswd
+echo "setup home dir..."
+echo ". /opt/stack/devstack/openrc" >> /home/user${i}/.bashrc
+mkdir /home/user${i}/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKQlnp+lZmtcBLCIgyKaDfyUjQJNtjfoIIQec1nbsdlZ6ta9etrBsqHrbSb6/i9+rI5gINbK9F3eqxLrND/m5pFxDw1nsM7IGuZGUqoVZpYmqleTEm/GBQiXlP6thOew74tUePSKOjXtRPEzLh/m3Q341jMedwRt2XoZPyJiEJSmxqrk5OPinhMbHsxq6uukScpJ1xOSQDhqPp3Zl9EGb/lO5/+lpEO0oAt5IVnZfPI/ufxWsVojlgYq1ukZNSiMNTkI7+8aWA51H807/ywma3IgA7UB5cQsocR/z2kInF/J/u3LluAC/q5a2yqQV2Korz+rpPOMos0eJFAItTVt8t">> /home/user${i}/.ssh/authorized_keys
+chown user${i}:user${i} /home/user${i}/.ssh/authorized_keys
+chmod 640 /home/user${i}/.ssh/authorized_keys
+echo "registering login..."
+curl "http://ec2-23-20-190-233.compute-1.amazonaws.com/register/${publicdns}/user${i}/"
+done
+#enable password authentication and restart ssh
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+/etc/init.d/ssh restart
+
+--===============2222916938782890230==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -20,34 +51,4 @@ echo SERVICE_TOKEN=tokentoken >> localrc
 echo FLAT_INTERFACE=br100 >> localrc
 ./stack.sh
 
---===============6092162405979549893==
-Content-Type: text/x-shellscript; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="30_create_users"
-
-#!/bin/bash
-
-#create user
-hostname=`hostname`
-dnsdomainname=`dnsdomainname`
-fqdn="${hostname}.${dnsdomainname}.com"
-
-for i in `shuf -i 2000-65000 -n 10`
-do
-echo ""
-echo "creating user$i..."
-adduser --disabled-password --gecos "" user${i}
-echo "setting standard passwd for user$i..."
-echo "user${i}:password" | chpasswd
-echo "setup home dir..."
-echo ". /opt/stack/devstack/openrc" >> /home/user${i}/.bashrc
-mkdir /home/user${i}/.ssh
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKQlnp+lZmtcBLCIgyKaDfyUjQJNtjfoIIQec1nbsdlZ6ta9etrBsqHrbSb6/i9+rI5gINbK9F3eqxLrND/m5pFxDw1nsM7IGuZGUqoVZpYmqleTEm/GBQiXlP6thOew74tUePSKOjXtRPEzLh/m3Q341jMedwRt2XoZPyJiEJSmxqrk5OPinhMbHsxq6uukScpJ1xOSQDhqPp3Zl9EGb/lO5/+lpEO0oAt5IVnZfPI/ufxWsVojlgYq1ukZNSiMNTkI7+8aWA51H807/ywma3IgA7UB5cQsocR/z2kInF/J/u3LluAC/q5a2yqQV2Korz+rpPOMos0eJFAItTVt8t">> /home/user${i}/.ssh/authorized_keys
-chown user${i}:user${i} /home/user${i}/.ssh/authorized_keys
-chmod 640 /home/user${i}/.ssh/authorized_keys
-echo "registering login..."
-curl "http://ec2-23-20-190-233.compute-1.amazonaws.com/register/${fqdn}/user${i}/"
-done
-
---===============6092162405979549893==--
+--===============2222916938782890230==--
