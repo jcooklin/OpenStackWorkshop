@@ -1,5 +1,7 @@
 #!/bin/bash
 
+apt-get update
+apt-get install -qqy git
 publicdns=`curl http://169.254.169.254/latest/meta-data/public-hostname`
 git clone https://github.com/jcooklin/OpenStackWorkshop.git
 cd OpenStackWorkshop
