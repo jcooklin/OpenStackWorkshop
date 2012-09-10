@@ -7,8 +7,8 @@ Summary
 
 This repo contains everything required to deliver an introduction to OpenStack workshop.  Within the activities directory are two labs that introduce the user to the nova CLI and the API through the python-novaclient.  The setup directory contains the scripts and automation for deploying devstack_ instances into AWS.  Finally the ittlcsite contains a simple Django app for registering devstack_ instances and logins as servers are deployed so the logins can later be allocated to the lab participants.  Lastly, for those users that do not have or don't want to install an SSH client we have included an HTML5 based (GateOne_) ssh client on each of the devstack instances.  
 
-Lab 1 - Managing Openstack through nova CLI (Command Line Interface) and using the Dashboard 
-============================================================================================
+Lab 1 - Using the CLI and Horizon Dashboard
+===========================================
 
 Managing Openstack through nova CLI (Command Line Interface) and using the Dashboard 
 
