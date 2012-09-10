@@ -5,24 +5,25 @@ OpenStack Workshop '12
 Summary
 =======
 
-This repo contains everything required to facilitate an introduction to OpenStack workshop.  Within the activities directory are two labs that introduce the user to the nova CLI and the API through the python-novaclient.  The setup directory contains the scripts and automation for deploying devstack_ instances into AWS.  Finally the ittlcsite contains a simple Django app is used to register devstack instances and logins as servers are deployed so the logins can later be allocated to the lab participants.
+This repo contains everything required to deliver an introduction to OpenStack workshop.  Within the activities directory are two labs that introduce the user to the nova CLI and the API through the python-novaclient.  The setup directory contains the scripts and automation for deploying devstack_ instances into AWS.  Finally the ittlcsite contains a simple Django app for registering devstack_ instances and logins as servers are deployed so the logins can later be allocated to the lab participants.  Lastly, for those users that do not have or don't want to install an SSH client we have included an HTML5 based (GateOne_) ssh client on each of the devstack instances.  
 
-Lab 1 - Managing Openstack through nova CLI (Command Line Interface) and using Dashboard 
-========================================================================================
+Lab 1 - Managing Openstack through nova CLI (Command Line Interface) and using the Dashboard 
+============================================================================================
 
-Managing Openstack through nova CLI (Command Line Interface) and using Dashboard 
+Managing Openstack through nova CLI (Command Line Interface) and using the Dashboard 
 
 - Users will be introduced to nova CLI.  
 - Using various nova commands users will check services, launch instances, create security keypairs and login into the instance created
 
-Lab 2 - Programming OpenStack, Its the API 
-==========================================
+Lab 2 - It's the API - Leveraging the OpenStack API
+===================================================
 
 - Users will be introduced to the API through the python-novaclient module.  
 - Similar to what was done in Lab 1, users will be able to use the python novaclient to list available images, flavors and to launch and destroy their instance.
 
-Deploying Devstack
-------------------
+
+Deploying the infrastructure required to support the lab
+--------------------------------------------------------
 
 We deploy devstack on a Ubuntu Cloud Imagei (12.04).  The image contains CloudInit_ a facility to bootstrap automation and customizations which we leveraged to add/install manage users, devstack, ssh, GateOne (html5 ssh client) and integrate with our server/login registration app.  
 
