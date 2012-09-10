@@ -3,6 +3,7 @@ from registerapp.models import *
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 import json
 
 logger = logging.getLogger(__name__)
@@ -34,6 +35,13 @@ def get_login(request):
             ,'login': participant.login.name
         }
     )
+def get_available_count(request):
+    logins = Login.objects.filter(participant=None)
+    return HttpResponse(json.dumps({"success": True, "result": len(logins)}),status=200, content_type="application/json");    
+
+def get_used_count(request):
+    logins = Login.objects.filter(~Q(participant=None))
+    return HttpResponse(json.dumps({"success": True, "result": len(logins)}),status=200, content_type="application/json");        
 
 def list_logins(request):
     logins = Login.objects.all()

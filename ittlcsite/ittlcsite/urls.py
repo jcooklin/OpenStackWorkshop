@@ -21,6 +21,11 @@ urlpatterns += patterns('registerapp',
     (r'^register/(?P<server>[-.\w]+)/(?P<login>[-\w]+)/$', register),
     (r'^$', get_login),
     (r'^login/list/$', list_logins),
+    (r'^login/$', list_logins),
+    (r'^login/available_count/$', get_available_count),
+    (r'^login/available/$', get_available_count),
+    (r'^login/used_count/$', get_used_count),
+    (r'^login/used/$', get_used_count),
 )
 
 
