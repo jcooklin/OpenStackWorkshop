@@ -1,0 +1,19 @@
+<html>
+ <head>
+  <title>Introduction to OpenStack workshop</title>
+ </head>
+ <body>
+ {% if error %}
+ <p>{{ error }}</p>
+ {% endif %}
+ Welcome to the OpenStack workshop.  
+ <br>
+ <br>
+ Please provide your idsid below so that we can provide you a devstack  username/password.  
+ <form action="." method="POST">
+ 	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit" />
+ </form>
+ </body>
+</html>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import admin
+from django import forms
 
 class Host(models.Model):
     name = models.CharField(max_length=120)
@@ -15,12 +16,16 @@ class Login(models.Model):
         return self.name
 
 class Participant(models.Model):
-    client_ip = models.CharField(max_length=60, unique=True)
+    name = models.CharField(max_length=20, unique=True)
+    client_ip = models.CharField(max_length=60)
     login = models.OneToOneField(Login)
     created = models.DateTimeField(auto_now_add=True)    
 
     class Meta:
         unique_together = ('login','client_ip')
+
+class LoginForm(forms.Form):
+    idsid = forms.CharField(max_length=20)
 
 class HostAdmin(admin.ModelAdmin):
     search_fields=["name"]
