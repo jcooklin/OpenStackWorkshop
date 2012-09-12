@@ -1,7 +1,7 @@
-Content-Type: multipart/mixed; boundary="===============6177096881517709452=="
+Content-Type: multipart/mixed; boundary="===============3378830621581875213=="
 MIME-Version: 1.0
 
---===============6177096881517709452==
+--===============3378830621581875213==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -30,6 +30,7 @@ echo "setup home dir..."
 echo ". /opt/stack/devstack/openrc" >> /home/user${i}/.bashrc
 mkdir /home/user${i}/.ssh
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKQlnp+lZmtcBLCIgyKaDfyUjQJNtjfoIIQec1nbsdlZ6ta9etrBsqHrbSb6/i9+rI5gINbK9F3eqxLrND/m5pFxDw1nsM7IGuZGUqoVZpYmqleTEm/GBQiXlP6thOew74tUePSKOjXtRPEzLh/m3Q341jMedwRt2XoZPyJiEJSmxqrk5OPinhMbHsxq6uukScpJ1xOSQDhqPp3Zl9EGb/lO5/+lpEO0oAt5IVnZfPI/ufxWsVojlgYq1ukZNSiMNTkI7+8aWA51H807/ywma3IgA7UB5cQsocR/z2kInF/J/u3LluAC/q5a2yqQV2Korz+rpPOMos0eJFAItTVt8t">> /home/user${i}/.ssh/authorized_keys
+echo "StrictHostKeyChecking no" > /home/user${i}/.ssh/config
 git archive master | tar -x -C /home/user${i}/
 chown -R user${i}:user${i} /home/user${i}
 chmod 640 /home/user${i}/.ssh/authorized_keys
@@ -41,7 +42,7 @@ done
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 /etc/init.d/ssh restart
 
---===============6177096881517709452==
+--===============3378830621581875213==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -60,7 +61,7 @@ echo SERVICE_TOKEN=tokentoken >> localrc
 echo FLAT_INTERFACE=br100 >> localrc
 ./stack.sh
 
---===============6177096881517709452==
+--===============3378830621581875213==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -71,7 +72,7 @@ URL='https://github.com/downloads/liftoff/GateOne/python-tornado_2.2-1_all.deb';
 URL='https://github.com/downloads/liftoff/GateOne/gateone_1.0-2_all.deb'; FILE=`mktemp`; wget "$URL" -qO $FILE && dpkg -i $FILE; rm $FILE
 /opt/gateone/gateone.py &
 
---===============6177096881517709452==
+--===============3378830621581875213==
 Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -81,4 +82,4 @@ Content-Disposition: attachment; filename="40_install_misc"
 
 pip install ipython
 
---===============6177096881517709452==--
+--===============3378830621581875213==--
